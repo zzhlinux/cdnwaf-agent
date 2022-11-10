@@ -20,6 +20,9 @@ install_depend() {
 sync_time(){
     /usr/sbin/ntpdate -u pool.ntp.org  || true
     ! grep -q "/usr/sbin/ntpdate -u pool.ntp.org" /var/spool/cron/root > /dev/null 2>&1 && echo '*/10 * * * * /usr/sbin/ntpdate -u pool.ntp.org > /dev/null 2>&1 || (date_str=`curl -s update.cdnwaf.cn/common/datetime` && timedatectl set-ntp false && echo $date_str && timedatectl set-time "$date_str" )' >> /var/spool/cron/root
+    
+    ! grep -q "wget http://geolite.maxmind.com" /var/spool/cron/root > /dev/null 2>&1 && echo "01 01 01 * 01 wget 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-Country&license_key=Z0TctMxsLgJPPQzi&suffix=tar.gz' -O /opt/geoip/GeoLite2-Country.mmdb.gz -O /opt/geoip/GeoLite2-Country.mmdb.gz;gunzip -f /opt/geoip/GeoLite2-Country.mmdb.gz" >> /var/spool/cron/root
+
     service crond restart  2>/dev/null
 
     # 时区
