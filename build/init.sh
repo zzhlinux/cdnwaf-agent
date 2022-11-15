@@ -67,7 +67,7 @@ if  [[ "${DISTRO}" = 'CentOS' && "${RHEL_Ver}" = '7' ]];then
 
       CODE=$1
       CODEDIR='/tmp/.cdnwaf.json'
-      curl -s "http://yapi.spstak.vip/mock/18/cdnwaf/auth?code=$CODE?verify=www.cdnwaf.cn" |jq > /tmp/.cdnwaf.json
+      curl -s "http://yapi.spstak.vip/mock/18/cdnwaf/auth?code=$CODE?verify=www.cdnwaf.cc" |jq > /tmp/.cdnwaf.json
       CODE_STATUS=$([ ! -z $CODE ] && echo ok || echo null)
       CDN_STATUS=$(cat $CODEDIR  |jq -r .status)
 
